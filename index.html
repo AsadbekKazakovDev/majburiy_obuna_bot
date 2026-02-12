@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+         :root {
+            --main-bg: #1c1c1e;
+            --card-bg: #2c2c2e;
+            --accent: #5856d6;
+            --text: #ffffff;
+        }
+        
+        body {
+            background: var(--main-bg);
+            color: var(--text);
+            font-family: -apple-system, sans-serif;
+            margin: 0;
+            padding: 15px;
+        }
+        
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .subject-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .count-tag {
+            background: var(--accent);
+            border-radius: 8px;
+            padding: 4px 12px;
+            font-size: 14px;
+        }
+        
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            color: #8e8e93;
+        }
+        
+        .nav-item {
+            text-align: center;
+            font-size: 11px;
+            flex: 1;
+            color: #1c1c1e;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">Milliy sertifikat testlari</div>
+
+    <div id="app">
+        <div class="subject-item"><span>Matematika</span><span class="count-tag">1 ta</span></div>
+        <div class="subject-item"><span>Fizika</span><span class="count-tag">3 ta</span></div>
+        <div class="subject-item"><span>Tarix</span><span class="count-tag">11 ta</span></div>
+    </div>
+
+    <div class="nav-bar">
+        <div class="nav-item">📋<br>Testlar</div>
+        <div class="nav-item">➕<br>Test yaratish</div>
+        <div class="nav-item">✅<br>Javob yuborish</div>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.MainButton.setText("SAVOLLARNI KO'RISH").show();
+    </script>
+</body>
+
+</html>

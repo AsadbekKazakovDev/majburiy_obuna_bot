@@ -1,48 +1,59 @@
-import sys
 
-def solve():
-    # Kiritish qismini o'zgartiramiz, readline tezroq va xavfsizroq
-    line = sys.stdin.readline()
-    if not line:
-        return
-    try:
-        n, m, k = map(int, line.split())
-    except ValueError:
-        return
+#TOKEN = "8175670659:AAGsZ1s0hkpt7sC_uhg0QFib8Z3nH-oHYSo"
+import asyncio
+import logging
+from aiogram import Bot, Dispatcher, types, F
+from aiogram.filters import Command
+from aiogram.types import WebAppInfo, InlineKeyboardMarkup, InlineKeyboardButton
 
-    MOD = 10**9 + 7
-    num_masks = 1 << (k + 1)
-    dp = [[0] * (m + 1) for _ in range(num_masks)]
-    dp[0][0] = 1
+# 1. SOZLAMALAR
+TOKEN = "8175670659:AAGsZ1s0hkpt7sC_uhg0QFib8Z3nH-oHYSo" # BotFather dan olingan token
+WEB_APP_URL = "https://sizning-saytingiz.vercel.app" # Mini App manzili
 
-    for i in range(1, n + 1):
-        
-        for d in range(1, k + 1):
-            if i + d <= n:
-            
-                m1 = 1          # 0-bit
-                m2 = (1 << d)   # d-bit
-                combined_mask = m1 | m2
-                
-                for j in range(m):
-                    for mask in range(num_masks):
-                        if dp[mask][j] > 0:
-                            next_mask = mask ^ combined_mask
-                         
-                            dp[next_mask][j + 1] = (dp[next_mask][j + 1] + dp[mask][j]) % MOD
-      
-        if i < n:
-            new_dp = [[0] * (m + 1) for _ in range(num_masks)]
-            for mask in range(num_masks):
-               
-                if not (mask & 1):
-                    next_mask = mask >> 1
-                    for j in range(m + 1):
-                        new_dp[next_mask][j] = dp[mask][j]
-            dp = new_dp
-        else:
-            
-            print(dp[0][m])
+bot = Bot(token=TOKEN)
+dp = Dispatcher()
+
+# 2. START KOMANDASI
+@dp.message(Command("start"))
+async def start_command(message: types.Message):
+    # Rasmdagi kabi chiroyli menyu tuzilmasi
+    builder = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="📚 MS testlar", web_app=WebAppInfo(url=WEB_APP_URL))],
+        [
+            InlineKeyboardButton(text="➕ Test yaratish", web_app=WebAppInfo(url=f"{WEB_APP_URL}/create")),
+            InlineKeyboardButton(text="✅ Javob yuborish", web_app=WebAppInfo(url=f"{WEB_APP_URL}/submit"))
+        ],
+        [
+            InlineKeyboardButton(text="👤 Mening ma'lumotlarim", callback_data="my_info"),
+            InlineKeyboardButton(text="📊 Mening testlarim", callback_data="my_tests")
+        ],
+        [InlineKeyboardButton(text="ℹ️ Yo'riqnoma", callback_data="guide")]
+    ])
+
+    await message.answer(
+        f"Assalomu alaykum, {message.from_user.full_name}!\n"
+        "Milliy sertifikat botiga xush kelibsiz. Botdan foydalanish uchun quyidagi menyuni tanlang:",
+        reply_markup=builder
+    )
+
+# 3. YO'RIQNOMA UCHUN CALLBACK
+@dp.callback_query(F.data == "guide")
+async def guide_handler(callback: types.CallbackQuery):
+    await callback.message.answer(
+        "📖 **Botdan foydalanish yo'riqnomasi:**\n\n"
+        "1. 'MS testlar' bo'limiga kiring.\n"
+        "2. Fanni tanlang va savollarga javob bering.\n"
+        "3. Natijalaringiz avtomatik saqlanadi."
+    )
+    await callback.answer()
+
+async def main():
+    logging.basicConfig(level=logging.INFO)
+    print("Bot ishga tushdi...")
+    await dp.start_polling(bot)
 
 if __name__ == "__main__":
-    solve()
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("Bot to'xtatildi")
