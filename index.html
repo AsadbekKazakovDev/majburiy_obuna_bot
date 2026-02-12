@@ -1,91 +1,205 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milliy Sertifikat PRO</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
          :root {
-            --main-bg: #1c1c1e;
-            --card-bg: #2c2c2e;
+            --bg: #0e1621;
+            --card: #17212b;
             --accent: #5856d6;
             --text: #ffffff;
         }
         
         body {
-            background: var(--main-bg);
+            background: var(--bg);
             color: var(--text);
-            font-family: -apple-system, sans-serif;
+            font-family: sans-serif;
             margin: 0;
+            padding-bottom: 70px;
+        }
+        
+        .container {
             padding: 15px;
         }
         
         .header {
-            font-size: 24px;
-            font-weight: bold;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
         }
+        /* Fanlar Ro'yxati (image_51970e) */
         
         .subject-item {
-            background: var(--card-bg);
-            border-radius: 12px;
+            background: var(--card);
             padding: 15px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
-        .count-tag {
+        .badge {
             background: var(--accent);
+            padding: 5px 12px;
             border-radius: 8px;
-            padding: 4px 12px;
-            font-size: 14px;
+            font-size: 13px;
+        }
+        /* Test Yaratish Jadvali (image_5199f9) */
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
         }
         
-        .nav-bar {
+        th,
+        td {
+            border: 1px solid #2c3e50;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        input[type="radio"] {
+            accent-color: var(--accent);
+            transform: scale(1.2);
+        }
+        /* Ochiq savollar qismi (image_519a32) */
+        
+        .open-question {
+            background: var(--card);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .q-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .input-box {
+            width: 100%;
+            background: #242f3d;
+            border: 1px solid #3d4b5a;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .btn-action {
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        /* Pastki Menu */
+        
+        .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
+            width: 100%;
+            background: #ffffff;
             display: flex;
             justify-content: space-around;
-            padding: 12px;
-            color: #8e8e93;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
         }
         
         .nav-item {
+            color: #8e8e93;
             text-align: center;
             font-size: 11px;
             flex: 1;
-            color: #1c1c1e;
-            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .nav-item.active {
+            color: var(--accent);
         }
     </style>
 </head>
 
 <body>
-    <div class="header">Milliy sertifikat testlari</div>
 
-    <div id="app">
-        <div class="subject-item"><span>Matematika</span><span class="count-tag">1 ta</span></div>
-        <div class="subject-item"><span>Fizika</span><span class="count-tag">3 ta</span></div>
-        <div class="subject-item"><span>Tarix</span><span class="count-tag">11 ta</span></div>
+    <div id="app" class="container">
+        <div id="page-tests">
+            <div class="header">Milliy sertifikat testlari</div>
+            <div class="subject-item"><span>Matematika</span><span class="badge">1 ta</span></div>
+            <div class="subject-item"><span>Fizika</span><span class="badge">3 ta</span></div>
+            <div class="subject-item"><span>Tarix</span><span class="badge">11 ta</span></div>
+        </div>
+
+        <div id="page-create" style="display:none;">
+            <div class="header">Milliy sertifikat testi yaratish</div>
+            <select class="input-box">
+            <option>---Fanni tanlang---</option>
+            <option>Matematika</option>
+            <option>Fizika</option>
+        </select>
+
+            <table>
+                <tr>
+                    <th>№</th>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>C</th>
+                    <th>D</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td><input type="radio" name="q1"></td>
+                    <td><input type="radio" name="q1"></td>
+                    <td><input type="radio" name="q1"></td>
+                    <td><input type="radio" name="q1"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><input type="radio" name="q2"></td>
+                    <td><input type="radio" name="q2"></td>
+                    <td><input type="radio" name="q2"></td>
+                    <td><input type="radio" name="q2"></td>
+                </tr>
+            </table>
+
+            <div class="open-question">
+                <div class="q-title"><span>36-savol</span>
+                    <div><button class="btn-action">+</button> <button style="background:red" class="btn-action">-</button></div>
+                </div>
+                <input type="text" class="input-box" placeholder="JAVOBNI KIRITING">
+            </div>
+            <button id="save-btn" style="width:100%; background:var(--accent); color:white; padding:15px; border-radius:10px; margin-top:20px; border:none; font-weight:bold;">Test yaratish</button>
+        </div>
     </div>
 
-    <div class="nav-bar">
-        <div class="nav-item">📋<br>Testlar</div>
-        <div class="nav-item">➕<br>Test yaratish</div>
+    <div class="bottom-nav">
+        <div class="nav-item active" onclick="showPage('tests')">📋<br>Testlar</div>
+        <div class="nav-item" onclick="showPage('create')">➕<br>Test yaratish</div>
         <div class="nav-item">✅<br>Javob yuborish</div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
-        tg.MainButton.setText("SAVOLLARNI KO'RISH").show();
+
+        function showPage(page) {
+            document.getElementById('page-tests').style.display = page === 'tests' ? 'block' : 'none';
+            document.getElementById('page-create').style.display = page === 'create' ? 'block' : 'none';
+        }
+
+        document.getElementById('save-btn').onclick = function() {
+            tg.sendData("Test saqlandi!"); // Botga ma'lumot yuborish
+        };
     </script>
 </body>
 
