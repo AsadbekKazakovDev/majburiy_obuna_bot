@@ -10,7 +10,7 @@ from telegram.ext import (
 )
 
 # ---------------- TOKEN ----------------
-TOKEN = "8481744833:AAHJ_R8dUkPhhw__B_C6UzoGHiPuQ5LcBeQ"
+TOKEN = "shu"
 
 # ---------------- KANALLAR ----------------
 CHANNELS = ["@kk2123", "@powwer3113"]
